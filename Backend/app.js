@@ -11,6 +11,7 @@ app.use(express.urlencoded({extended:false}))
 
 const corsOptions = {
     origin: 'http://localhost:5173', // specify your frontend's URL
+    credentials: true,
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
@@ -78,7 +79,7 @@ app.post("/forgot-password",async(req,res)=>{
         }
         const secret = jwtPasssword + oldUser.password
         const token  = jwt.sign({email:oldUser.email,id:oldUser._id},secret,{expiresIn:'5m'})
-        const link = `http://localhost:3000/reset-password/${oldUser._id}/${token}`
+        const link = `http://localhost:5173/reset-password/${oldUser._id}/${token}`
         console.log(link)
     }catch(e){console.log(e)}
     
@@ -97,7 +98,7 @@ app.get("/reset-password/:id/:token",async(req,res)=>{
     const secret = jwtPasssword + oldUser.password
     try {
         const verify  = jwt.verify(token,secret)
-        res.render("index",{email:verify.email})
+        //res.render("index",{email:verify.email})
     } catch (error) {
         res.json({status:"not verified"})
     }
