@@ -104,7 +104,8 @@ const Login = () => {
                 />
             </form>
             <p style={orTextStyle}>OR</p>
-            <Link to="/signup" style={signupLinkStyle}>SignUp Page</Link>
+            <Link to="/signup" style={signupLinkStyle}>SignUp Page</Link><br />
+            <Link to="/forgot-password">Forgot Password</Link>
         </div>
     );
 }
